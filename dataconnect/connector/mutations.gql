@@ -1,0 +1,42 @@
+# Mutations for Madahiye Blood Donation Platform
+
+# Create or update a user profile
+mutation UpsertUser($id: String!, $displayName: String!, $email: String!, $bloodType: String!, $gender: String, $status: String!, $role: String!) {
+  user_upsert(data: {
+    id: $id,
+    displayName: $displayName,
+    email: $email,
+    bloodType: $bloodType,
+    gender: $gender,
+    status: $status,
+    role: $role
+  })
+}
+
+# Post a new blood request
+mutation CreateBloodRequest($recipientId: String!, $bloodType: String!, $hospitalName: String!, $location: String!, $urgency: String!) {
+  bloodRequest_insert(data: {
+    recipient: { id: $recipientId },
+    bloodType: $bloodType,
+    hospitalName: $hospitalName,
+    location: $location,
+    urgency: $urgency,
+    status: "open"
+  })
+}
+
+# Accept a blood request (match a donor)
+mutation AcceptBloodRequest($requestId: UUID!, $donorId: String!) {
+  bloodRequest_update(id: $requestId, data: {
+    donor: { id: $donorId },
+    status: "matched"
+  })
+}
+
+# Confirm a donation (handshake)
+mutation ConfirmDonation($donationId: UUID!, $isDonor: Boolean!) {
+  donation_update(id: $donationId, data: {
+    donorConfirmed: $isDonor ? true : undefined,
+    recipientConfirmed: !$isDonor ? true : undefined
+  })
+}

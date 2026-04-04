@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile containing blood type, donation history, and status.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "displayName": { "type": "string", "description": "User's full name" },
+        "email": { "type": "string", "format": "email" },
+        "bloodType": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"] },
+        "lastDonationDate": { "type": "string", "format": "date-time", "description": "ISO 8601 timestamp of last donation" },
+        "lastCheckupDate": { "type": "string", "format": "date-time", "description": "ISO 8601 timestamp of last health checkup" },
+        "status": { "type": "string", "enum": ["active", "banned", "pending_verification"], "description": "User account status" },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User role" },
+        "rating": { "type": "number", "description": "Average rating from donors/recipients" },
+        "gender": { "type": "string", "enum": ["male", "female"], "description": "User gender" }
+      },
+      "required": ["uid", "displayName", "email", "bloodType", "status", "role"]
+    },
+    "Request": {
+      "title": "Blood Request",
+      "description": "A request for blood donation posted by a recipient.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "recipientUid": { "type": "string" },
+        "bloodType": { "type": "string" },
+        "hospitalName": { "type": "string" },
+        "location": { "type": "string" },
+        "urgency": { "type": "string", "enum": ["low", "medium", "high", "emergency"] },
+        "status": { "type": "string", "enum": ["open", "matched", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "donorUid": { "type": "string", "description": "UID of the donor who accepted the request" }
+      },
+      "required": ["recipientUid", "bloodType", "hospitalName", "location", "urgency", "status", "createdAt"]
+    },
+    "Donation": {
+      "title": "Donation Record",
+      "description": "A record of a completed blood donation.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "requestId": { "type": "string" },
+        "donorUid": { "type": "string" },
+        "recipientUid": { "type": "string" },
+        "donationDate": { "type": "string", "format": "date-time" },
+        "recipientConfirmed": { "type": "boolean", "description": "Recipient confirmed blood received and $20 paid" },
+        "donorConfirmed": { "type": "boolean", "description": "Donor confirmed donation and $20 received" },
+        "status": { "type": "string", "enum": ["pending", "completed", "disputed"] }
+      },
+      "required": ["requestId", "donorUid", "recipientUid", "donationDate", "status"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "A dispute or complaint filed by a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reporterUid": { "type": "string" },
+        "targetUid": { "type": "string" },
+        "donationId": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "investigating", "resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterUid", "targetUid", "donationId", "reason", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{uid}": { "schema": "User", "description": "User profiles" },
+    "/requests/{requestId}": { "schema": "Request", "description": "Blood donation requests" },
+    "/donations/{donationId}": { "schema": "Donation", "description": "Donation records" },
+    "/complaints/{complaintId}": { "schema": "Complaint", "description": "User complaints" }
+  }
+}

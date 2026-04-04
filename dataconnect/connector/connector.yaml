@@ -1,0 +1,6 @@
+specVersion: "v1alpha"
+connectorId: "madahiye-connector"
+generate:
+  javascriptSdk:
+    outputDir: "../../src/generated/dataconnect"
+    package: "@madahiye/dataconnect"

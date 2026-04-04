@@ -1,0 +1,53 @@
+export type BloodType = "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
+export type UserStatus = "active" | "banned" | "pending_verification";
+export type UserRole = "user" | "admin";
+export type RequestUrgency = "low" | "medium" | "high" | "emergency";
+export type RequestStatus = "open" | "matched" | "completed" | "cancelled";
+export type DonationStatus = "pending" | "completed" | "disputed";
+export type ComplaintStatus = "pending" | "investigating" | "resolved";
+
+export interface UserProfile {
+  uid: string;
+  displayName: string;
+  email: string;
+  bloodType: BloodType;
+  lastDonationDate?: string;
+  lastCheckupDate?: string;
+  status: UserStatus;
+  role: UserRole;
+  rating?: number;
+  gender?: "male" | "female";
+}
+
+export interface BloodRequest {
+  id: string;
+  recipientUid: string;
+  bloodType: BloodType;
+  hospitalName: string;
+  location: string;
+  urgency: RequestUrgency;
+  status: RequestStatus;
+  createdAt: string;
+  donorUid?: string;
+}
+
+export interface DonationRecord {
+  id: string;
+  requestId: string;
+  donorUid: string;
+  recipientUid: string;
+  donationDate: string;
+  recipientConfirmed?: boolean;
+  donorConfirmed?: boolean;
+  status: DonationStatus;
+}
+
+export interface Complaint {
+  id: string;
+  reporterUid: string;
+  targetUid: string;
+  donationId: string;
+  reason: string;
+  status: ComplaintStatus;
+  createdAt: string;
+}
