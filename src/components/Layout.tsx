@@ -1,16 +1,19 @@
 import React from 'react';
-import { LogOut, Droplets } from 'lucide-react';
+import { LogOut, Droplets, Shield, LayoutDashboard } from 'lucide-react';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import { UserProfile } from '../types';
 
 interface LayoutProps {
   children: React.ReactNode;
-  user: any;
+  user: UserProfile | null;
+  onViewChange?: (view: 'dashboard' | 'admin') => void;
+  currentView?: 'dashboard' | 'admin';
 }
 
-export default function Layout({ children, user }: LayoutProps) {
+export default function Layout({ children, user, onViewChange, currentView }: LayoutProps) {
   const { t } = useLanguage();
   const handleSignOut = () => {
     signOut(auth);
@@ -21,7 +24,10 @@ export default function Layout({ children, user }: LayoutProps) {
       <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center gap-2">
+            <div 
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => onViewChange?.('dashboard')}
+            >
               <Droplets className="w-8 h-8 text-red-600" />
               <span className="text-2xl font-bold tracking-tight text-slate-900">{t('appName')}</span>
             </div>
@@ -30,6 +36,28 @@ export default function Layout({ children, user }: LayoutProps) {
               <LanguageSwitcher />
               {user && (
                 <div className="flex items-center gap-4">
+                  {user.role === 'admin' && onViewChange && (
+                    <button 
+                      onClick={() => onViewChange(currentView === 'admin' ? 'dashboard' : 'admin')}
+                      className={`flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-xl transition-all ${
+                        currentView === 'admin' 
+                        ? 'bg-red-600 text-white shadow-lg shadow-red-100' 
+                        : 'text-slate-600 hover:bg-slate-50'
+                      }`}
+                    >
+                      {currentView === 'admin' ? (
+                        <>
+                          <LayoutDashboard className="w-4 h-4" />
+                          {t('dashboard')}
+                        </>
+                      ) : (
+                        <>
+                          <Shield className="w-4 h-4" />
+                          {t('adminPanel')}
+                        </>
+                      )}
+                    </button>
+                  )}
                   <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-red-50 text-red-700 rounded-full text-sm font-medium">
                     <Droplets className="w-4 h-4" />
                     {user.bloodType}

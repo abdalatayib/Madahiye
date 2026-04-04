@@ -239,6 +239,9 @@ function RequestFormModal({ user, onClose }: { user: UserProfile, onClose: () =>
   const [hospital, setHospital] = React.useState('');
   const [location, setLocation] = React.useState('');
   const [urgency, setUrgency] = React.useState<RequestUrgency>('medium');
+  const [senderNumber, setSenderNumber] = React.useState('');
+  const [whatsappNumber, setWhatsappNumber] = React.useState('');
+  const [callNumber, setCallNumber] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const { t } = useLanguage();
 
@@ -253,6 +256,9 @@ function RequestFormModal({ user, onClose }: { user: UserProfile, onClose: () =>
         location,
         urgency,
         status: 'open',
+        senderNumber,
+        whatsappNumber,
+        callNumber,
         createdAt: new Date().toISOString()
       });
       onClose();
@@ -286,11 +292,16 @@ function RequestFormModal({ user, onClose }: { user: UserProfile, onClose: () =>
             </button>
           </div>
 
-          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 mb-6 flex gap-3">
-            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
-            <div className="text-sm text-amber-800">
-              <p className="font-bold">{t('importantNotice')}</p>
-              <p className="opacity-90">{t('feeNotice')}</p>
+          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 mb-6 flex flex-col gap-3">
+            <div className="flex gap-3">
+              <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+              <div className="text-sm text-amber-800">
+                <p className="font-bold">{t('importantNotice')}</p>
+                <p className="opacity-90">{t('feeNotice')}</p>
+              </div>
+            </div>
+            <div className="bg-white/50 rounded-xl p-3 border border-amber-200 text-xs font-bold text-amber-900 text-center">
+              {t('paymentInstructions')}
             </div>
           </div>
 
@@ -350,6 +361,44 @@ function RequestFormModal({ user, onClose }: { user: UserProfile, onClose: () =>
                   placeholder={t('location')}
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
                 />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{t('senderNumber')}</label>
+                <input 
+                  required
+                  type="tel"
+                  value={senderNumber}
+                  onChange={(e) => setSenderNumber(e.target.value)}
+                  placeholder="e.g. +252 61..."
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{t('whatsappNumber')}</label>
+                  <input 
+                    required
+                    type="tel"
+                    value={whatsappNumber}
+                    onChange={(e) => setWhatsappNumber(e.target.value)}
+                    placeholder="WhatsApp"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{t('callNumber')}</label>
+                  <input 
+                    required
+                    type="tel"
+                    value={callNumber}
+                    onChange={(e) => setCallNumber(e.target.value)}
+                    placeholder="Call"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
+                  />
+                </div>
               </div>
             </div>
 

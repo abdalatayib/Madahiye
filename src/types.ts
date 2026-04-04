@@ -29,6 +29,9 @@ export interface BloodRequest {
   status: RequestStatus;
   createdAt: string;
   donorUid?: string;
+  senderNumber?: string;
+  whatsappNumber?: string;
+  callNumber?: string;
 }
 
 export interface DonationRecord {

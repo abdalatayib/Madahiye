@@ -8,7 +8,8 @@ import Auth from './components/Auth';
 import ProfileSetup from './components/ProfileSetup';
 import Dashboard from './components/Dashboard';
 import DonationTracker from './components/DonationTracker';
-import { Droplets } from 'lucide-react';
+import AdminPanel from './components/AdminPanel';
+import { Droplets, Shield } from 'lucide-react';
 import { useLanguage } from './contexts/LanguageContext';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   const [profile, setProfile] = React.useState<UserProfile | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [authReady, setAuthReady] = React.useState(false);
+  const [view, setView] = React.useState<'dashboard' | 'admin'>('dashboard');
   const { t } = useLanguage();
 
   React.useEffect(() => {
@@ -70,7 +72,7 @@ export default function App() {
   }
 
   return (
-    <Layout user={profile}>
+    <Layout user={profile} onViewChange={setView} currentView={view}>
       <div className="space-y-8">
         {profile.status === 'banned' ? (
           <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-2xl mx-auto">
@@ -87,8 +89,14 @@ export default function App() {
           </div>
         ) : (
           <>
-            <DonationTracker user={profile} />
-            <Dashboard user={profile} />
+            {view === 'admin' && profile.role === 'admin' ? (
+              <AdminPanel />
+            ) : (
+              <>
+                <DonationTracker user={profile} />
+                <Dashboard user={profile} />
+              </>
+            )}
           </>
         )}
       </div>

@@ -14,14 +14,17 @@ mutation UpsertUser($id: String!, $displayName: String!, $email: String!, $blood
 }
 
 # Post a new blood request
-mutation CreateBloodRequest($recipientId: String!, $bloodType: String!, $hospitalName: String!, $location: String!, $urgency: String!) {
+mutation CreateBloodRequest($recipientId: String!, $bloodType: String!, $hospitalName: String!, $location: String!, $urgency: String!, $senderNumber: String, $whatsappNumber: String, $callNumber: String) {
   bloodRequest_insert(data: {
     recipient: { id: $recipientId },
     bloodType: $bloodType,
     hospitalName: $hospitalName,
     location: $location,
     urgency: $urgency,
-    status: "open"
+    status: "open",
+    senderNumber: $senderNumber,
+    whatsappNumber: $whatsappNumber,
+    callNumber: $callNumber
   })
 }
 

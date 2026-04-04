@@ -49,6 +49,7 @@ export const translations: Translations = {
 
   // Dashboard
   activeRequests: { so: 'Codsiyada Firfircoon', en: 'Active Requests', ar: 'الطلبات النشطة' },
+  dashboard: { so: 'Dashboard', en: 'Dashboard', ar: 'لوحة القيادة' },
   postRequest: { so: 'Gudbi Codsi', en: 'Post Request', ar: 'نشر طلب' },
   myActivity: { so: 'Waxqabadkayga', en: 'My Activity', ar: 'نشاطي' },
   myRequests: { so: 'Codsiyadayda', en: 'My Requests', ar: 'طلباتي' },
@@ -70,6 +71,17 @@ export const translations: Translations = {
   importantNotice: { so: 'Ogeysiis Muhiim ah', en: 'Important Notice', ar: 'تنبيه هام' },
   feeNotice: { so: 'Lacag dhan $0.50 ayaa lagu dalacayaa. Waa inaad siisaa deeq bixiyaha $20 isla markiiba ka dib deeqda.', en: 'A platform fee of $0.50 applies. You must pay the donor $20 immediately after donation.', ar: 'يتم تطبيق رسوم منصة قدرها 0.50 دولار. يجب عليك دفع 20 دولاراً للمتبرع فور التبرع.' },
   posting: { so: 'Waa la soo dhajinayaa...', en: 'Posting...', ar: 'جاري النشر...' },
+  senderNumber: { so: 'Lambarka lacagta laga soo diray', en: 'Sender Mobile Money Number', ar: 'رقم مرسل الأموال' },
+  whatsappNumber: { so: 'Lambarka WhatsApp-ka', en: 'WhatsApp Number', ar: 'رقم الواتساب' },
+  callNumber: { so: 'Lambarka taleefanka (Wicitaanka)', en: 'Phone Number (Calling)', ar: 'رقم الهاتف (للاتصال)' },
+  paymentInstructions: { so: 'Fadlan u soo dir $0.50 lambarkan: +252 61 5000000', en: 'Please send $0.50 to this number: +252 61 5000000', ar: 'يرجى إرسال 0.50 دولار إلى هذا الرقم: +252 61 5000000' },
+  adminPanel: { so: 'Maamulka', en: 'Admin Panel', ar: 'لوحة التحكم' },
+  manageUsers: { so: 'Maamul isticmaalayaasha', en: 'Manage Users', ar: 'إدارة المستخدمين' },
+  manageRequests: { so: 'Maamul codsiyada', en: 'Manage Requests', ar: 'إدارة الطلبات' },
+  allComplaints: { so: 'Dhammaan cabashooyinka', en: 'All Complaints', ar: 'جميع الشكاوى' },
+  banUser: { so: 'Mamnuuc isticmaalaha', en: 'Ban User', ar: 'حظر المستخدم' },
+  unbanUser: { so: 'Ka qaad mamnuucista', en: 'Unban User', ar: 'إلغاء حظر المستخدم' },
+  verifyUser: { so: 'Xaqiiji isticmaalaha', en: 'Verify User', ar: 'تحقق من المستخدم' },
 
   // Donation Tracker
   pendingConfirmations: { so: 'Xaqiijinta Sugaysa', en: 'Pending Confirmations', ar: 'تأكيدات معلقة' },

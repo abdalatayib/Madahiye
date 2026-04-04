@@ -72,7 +72,10 @@ service cloud.firestore {
       return data.recipientUid is string &&
              data.bloodType in ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"] &&
              data.hospitalName is string && data.hospitalName.size() > 0 &&
-             data.status in ["open", "matched", "completed", "cancelled"];
+             data.status in ["open", "matched", "completed", "cancelled"] &&
+             (!('senderNumber' in data) || (data.senderNumber is string && data.senderNumber.size() < 20)) &&
+             (!('whatsappNumber' in data) || (data.whatsappNumber is string && data.whatsappNumber.size() < 20)) &&
+             (!('callNumber' in data) || (data.callNumber is string && data.callNumber.size() < 20));
     }
 
     // Rules

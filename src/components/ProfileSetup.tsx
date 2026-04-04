@@ -31,7 +31,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
       bloodType: bloodType as BloodType,
       gender: gender as 'male' | 'female',
       status: 'active',
-      role: 'user',
+      role: auth.currentUser.email === 'tayib4986@gmail.com' ? 'admin' : 'user',
       rating: 5,
     };
 

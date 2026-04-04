@@ -31,7 +31,10 @@
         "urgency": { "type": "string", "enum": ["low", "medium", "high", "emergency"] },
         "status": { "type": "string", "enum": ["open", "matched", "completed", "cancelled"] },
         "createdAt": { "type": "string", "format": "date-time" },
-        "donorUid": { "type": "string", "description": "UID of the donor who accepted the request" }
+        "donorUid": { "type": "string", "description": "UID of the donor who accepted the request" },
+        "senderNumber": { "type": "string", "description": "Number the money was sent from" },
+        "whatsappNumber": { "type": "string", "description": "WhatsApp contact number" },
+        "callNumber": { "type": "string", "description": "Phone number for direct calls" }
       },
       "required": ["recipientUid", "bloodType", "hospitalName", "location", "urgency", "status", "createdAt"]
     },
