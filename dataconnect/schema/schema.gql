@@ -1,0 +1,51 @@
+# Data Connect Schema for Madahiye Blood Donation Platform
+
+# User Profile
+type User @table {
+  id: String! @primaryKey
+  displayName: String!
+  email: String!
+  bloodType: String! # Enum: A+, A-, B+, B-, AB+, AB-, O+, O-
+  gender: String
+  status: String! # Enum: active, banned, pending_verification
+  role: String! # Enum: user, admin
+  rating: Float
+  lastDonationDate: Timestamp
+  lastCheckupDate: Timestamp
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+# Blood Request
+type BloodRequest @table {
+  id: UUID! @default(expr: "uuidV4()")
+  recipient: User!
+  bloodType: String!
+  hospitalName: String!
+  location: String!
+  urgency: String! # Enum: low, medium, high, emergency
+  status: String! # Enum: open, matched, completed, cancelled
+  createdAt: Timestamp! @default(expr: "request.time")
+  donor: User # The user who accepted the request
+}
+
+# Donation Record
+type Donation @table {
+  id: UUID! @default(expr: "uuidV4()")
+  request: BloodRequest!
+  donor: User!
+  recipient: User!
+  donationDate: Timestamp! @default(expr: "request.time")
+  status: String! # Enum: pending, completed, cancelled
+  donorConfirmed: Boolean @default(value: false)
+  recipientConfirmed: Boolean @default(value: false)
+}
+
+# Complaint Record
+type Complaint @table {
+  id: UUID! @default(expr: "uuidV4()")
+  reporter: User!
+  donation: Donation!
+  reason: String!
+  status: String! # Enum: pending, investigating, resolved
+  createdAt: Timestamp! @default(expr: "request.time")
+}

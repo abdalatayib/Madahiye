@@ -1,0 +1,48 @@
+# Queries for Madahiye Blood Donation Platform
+
+# Get all active blood requests
+query GetActiveRequests {
+  bloodRequests(where: { status: { eq: "open" } }) {
+    id
+    bloodType
+    hospitalName
+    location
+    urgency
+    createdAt
+    recipient {
+      id
+      displayName
+      rating
+    }
+  }
+}
+
+# Get a user's profile
+query GetUserProfile($id: String!) {
+  user(id: $id) {
+    id
+    displayName
+    email
+    bloodType
+    status
+    role
+    rating
+    lastDonationDate
+  }
+}
+
+# Get a user's donation history
+query GetUserDonations($userId: String!) {
+  donations(where: { donor: { id: { eq: $userId } } }) {
+    id
+    donationDate
+    status
+    request {
+      bloodType
+      hospitalName
+    }
+    recipient {
+      displayName
+    }
+  }
+}
