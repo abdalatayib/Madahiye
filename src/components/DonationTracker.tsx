@@ -17,44 +17,21 @@ export default function DonationTracker({ user }: DonationTrackerProps) {
 
   React.useEffect(() => {
     if (!user.uid) return;
-
-    const donorQuery = query(
+    
+    const q = query(
       collection(db, 'donations'),
-      where('donorUid', '==', user.uid),
       where('status', '==', 'pending')
     );
 
-    const recipientQuery = query(
-      collection(db, 'donations'),
-      where('recipientUid', '==', user.uid),
-      where('status', '==', 'pending')
-    );
-
-    const mergeSnapshot = (docs: any[]) => {
-      const unique = new Map<string, DonationRecord>();
-      docs.forEach((doc) => {
-        unique.set(doc.id, doc as DonationRecord);
-      });
-      setDonations(Array.from(unique.values()));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs = snapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() } as DonationRecord))
+        .filter(d => d.donorUid === user.uid || d.recipientUid === user.uid);
+      setDonations(docs);
       setLoading(false);
-    };
+    });
 
-    const unsubscribers = [
-      onSnapshot(donorQuery, (snapshot) => {
-        mergeSnapshot(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as DonationRecord)));
-      }, (error) => {
-        console.error('DonationTracker snapshot error (donor):', error);
-        setLoading(false);
-      }),
-      onSnapshot(recipientQuery, (snapshot) => {
-        mergeSnapshot(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as DonationRecord)));
-      }, (error) => {
-        console.error('DonationTracker snapshot error (recipient):', error);
-        setLoading(false);
-      }),
-    ];
-
-    return () => unsubscribers.forEach((unsubscribe) => unsubscribe());
+    return () => unsubscribe();
   }, [user.uid]);
 
   const handleConfirm = async (donation: DonationRecord, isDonor: boolean) => {

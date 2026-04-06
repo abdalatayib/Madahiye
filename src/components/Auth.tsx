@@ -21,6 +21,8 @@ export default function Auth() {
       console.error('Auth Error Details:', err);
       if (err.code === 'auth/internal-error') {
         setError(t('authInternalError') || 'Firebase Auth is still provisioning or domain is not authorized. Please wait a few minutes and try again.');
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setError(t('authUnauthorizedDomain') + ' (' + window.location.hostname + ')');
       } else {
         setError(err.message);
       }

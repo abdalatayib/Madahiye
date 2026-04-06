@@ -2,7 +2,7 @@ import React from 'react';
 import { db } from '../firebase';
 import { collection, query, onSnapshot, doc, updateDoc, orderBy } from 'firebase/firestore';
 import { UserProfile, BloodRequest, Complaint } from '../types';
-import { Users, FileText, AlertTriangle, Shield, Ban, CheckCircle, Search, Phone, MessageCircle } from 'lucide-react';
+import { Users, FileText, AlertTriangle, Shield, Ban, CheckCircle, Search, Phone, MessageCircle, Plus } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -31,6 +31,16 @@ export default function AdminPanel() {
       unsubComplaints();
     };
   }, []);
+
+  const handleUpdatePoints = async (uid: string, currentPoints: number, amount: number) => {
+    try {
+      await updateDoc(doc(db, 'users', uid), { 
+        points: Math.max(0, (currentPoints || 0) + amount) 
+      });
+    } catch (err) {
+      console.error("Error updating points:", err);
+    }
+  };
 
   const handleUpdateUserStatus = async (uid: string, status: UserProfile['status']) => {
     try {
@@ -99,6 +109,7 @@ export default function AdminPanel() {
                     <th className="pb-4 font-bold text-slate-500 text-xs uppercase tracking-wider">User</th>
                     <th className="pb-4 font-bold text-slate-500 text-xs uppercase tracking-wider">Blood Type</th>
                     <th className="pb-4 font-bold text-slate-500 text-xs uppercase tracking-wider">Status</th>
+                    <th className="pb-4 font-bold text-slate-500 text-xs uppercase tracking-wider">Points</th>
                     <th className="pb-4 font-bold text-slate-500 text-xs uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
@@ -127,6 +138,25 @@ export default function AdminPanel() {
                         }`}>
                           {t(u.status)}
                         </span>
+                      </td>
+                      <td className="py-4">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-slate-900">{u.points || 0}</span>
+                          <div className="flex flex-col gap-1">
+                            <button 
+                              onClick={() => handleUpdatePoints(u.uid, u.points || 0, 1)}
+                              className="p-0.5 hover:bg-slate-100 rounded text-green-600"
+                            >
+                              <Plus className="w-3 h-3" />
+                            </button>
+                            <button 
+                              onClick={() => handleUpdatePoints(u.uid, u.points || 0, -1)}
+                              className="p-0.5 hover:bg-slate-100 rounded text-red-600"
+                            >
+                              <Plus className="w-3 h-3 rotate-45" />
+                            </button>
+                          </div>
+                        </div>
                       </td>
                       <td className="py-4">
                         <div className="flex gap-2">
@@ -178,21 +208,16 @@ export default function AdminPanel() {
                   </span>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Shield className="w-4 h-4 text-slate-400" />
-                    <span className="text-slate-500">Paid from:</span>
-                    <span className="font-bold text-slate-900">{req.senderNumber || 'N/A'}</span>
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl">
                   <div className="flex items-center gap-2 text-sm">
                     <MessageCircle className="w-4 h-4 text-green-500" />
                     <span className="text-slate-500">WhatsApp:</span>
-                    <span className="font-bold text-slate-900">{req.whatsappNumber || 'N/A'}</span>
+                    <span className="font-bold text-slate-900">{req.contactWhatsApp || 'N/A'}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Phone className="w-4 h-4 text-blue-500" />
                     <span className="text-slate-500">Call:</span>
-                    <span className="font-bold text-slate-900">{req.callNumber || 'N/A'}</span>
+                    <span className="font-bold text-slate-900">{req.contactPhone || 'N/A'}</span>
                   </div>
                 </div>
               </div>

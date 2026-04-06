@@ -14,14 +14,13 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
   const [gender, setGender] = React.useState<'male' | 'female' | ''>('');
   const [whatsappNumber, setWhatsappNumber] = React.useState('');
   const [evcNumber, setEvcNumber] = React.useState('');
-  const [profilePicture, setProfilePicture] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!bloodType || !gender || !whatsappNumber || !evcNumber || !profilePicture) return;
+    if (!bloodType || !gender) return;
     if (!auth.currentUser) return;
 
     setLoading(true);
@@ -35,12 +34,10 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
       gender: gender as 'male' | 'female',
       whatsappNumber,
       evcNumber,
-      status: 'active',
-      role: 'user',
-      rating: 5,
       points: 0,
-      profilePicture: profilePicture,
-      coverPicture: '/icon.png', // Default cover picture
+      status: 'active',
+      role: auth.currentUser.email === 'tayib4986@gmail.com' ? 'admin' : 'user',
+      rating: 5,
     };
 
     try {
@@ -50,17 +47,6 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
       setError(err.message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfilePicture(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -123,54 +109,31 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
 
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">{t('whatsappNumber')}</label>
-          <input
+          <input 
+            required
             type="tel"
             value={whatsappNumber}
             onChange={(e) => setWhatsappNumber(e.target.value)}
-            placeholder={t('whatsappNumberPlaceholder')}
+            placeholder="e.g. +252..."
             className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
-            required
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">{t('evcNumber')}</label>
-          <input
-            type="text"
+          <input 
+            required
+            type="tel"
             value={evcNumber}
             onChange={(e) => setEvcNumber(e.target.value)}
-            placeholder={t('evcNumberPlaceholder')}
+            placeholder="e.g. +252..."
             className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
-            required
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Profile Picture *</label>
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center overflow-hidden">
-              {profilePicture ? (
-                <img src={profilePicture} alt="Profile" className="w-16 h-16 object-cover" />
-              ) : (
-                <User className="w-8 h-8 text-slate-400" />
-              )}
-            </div>
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileUpload}
-                className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
-                required
-              />
-              <p className="text-xs text-slate-500 mt-1">Please upload a profile picture</p>
-            </div>
-          </div>
         </div>
 
         <button
           type="submit"
-          disabled={loading || !bloodType || !gender || !whatsappNumber || !evcNumber || !profilePicture}
+          disabled={loading || !bloodType || !gender}
           className="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-100 disabled:opacity-50"
         >
           {loading ? t('loading') : t('completeRegistration')}

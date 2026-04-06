@@ -26,6 +26,9 @@ type BloodRequest @table {
   status: String! # Enum: open, matched, completed, cancelled
   createdAt: Timestamp! @default(expr: "request.time")
   donor: User # The user who accepted the request
+  senderNumber: String
+  whatsappNumber: String
+  callNumber: String
 }
 
 # Donation Record
