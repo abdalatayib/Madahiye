@@ -11,6 +11,8 @@ import DonationTracker from './components/DonationTracker';
 import AdminPanel from './components/AdminPanel';
 import UserList from './components/UserList';
 import Profile from './components/Profile';
+import Chat from './components/Chat';
+import { doc, getDoc } from 'firebase/firestore';
 import { Droplets, Shield } from 'lucide-react';
 import { useLanguage } from './contexts/LanguageContext';
 
@@ -19,7 +21,9 @@ export default function App() {
   const [profile, setProfile] = React.useState<UserProfile | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [authReady, setAuthReady] = React.useState(false);
-  const [view, setView] = React.useState<'dashboard' | 'admin' | 'users' | 'profile'>('dashboard');
+  const [view, setView] = React.useState<'dashboard' | 'admin' | 'users' | 'profile' | 'userProfile'>('dashboard');
+  const [selectedUser, setSelectedUser] = React.useState<UserProfile | null>(null);
+  const [chatUser, setChatUser] = React.useState<UserProfile | null>(null);
   const { t } = useLanguage();
 
   React.useEffect(() => {
@@ -97,8 +101,26 @@ export default function App() {
         ) : (
           <>
             {view === 'admin' && profile.role === 'admin' && <AdminPanel />}
-            {view === 'users' && <UserList />}
+            {view === 'users' && (
+              <UserList
+                onViewProfile={async (uid: string) => {
+                  if (uid === profile.uid) {
+                    setSelectedUser(null);
+                    setView('profile');
+                  } else {
+                    const userDoc = await getDoc(doc(db, 'users', uid));
+                    if (userDoc.exists()) {
+                      setSelectedUser(userDoc.data() as UserProfile);
+                      setView('userProfile');
+                    }
+                  }
+                }}
+              />
+            )}
             {view === 'profile' && <Profile user={profile} />}
+            {view === 'userProfile' && selectedUser && (
+              <Profile user={selectedUser} onMessage={() => setChatUser(selectedUser)} />
+            )}
             {view === 'dashboard' && (
               <>
                 <DonationTracker user={profile} />
@@ -109,5 +131,8 @@ export default function App() {
         )}
       </div>
     </Layout>
+    {chatUser && (
+      <Chat currentUser={profile} targetUser={chatUser} onClose={() => setChatUser(null)} />
+    )}
   );
 }

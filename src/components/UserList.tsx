@@ -6,7 +6,11 @@ import { Search, Droplets, Star, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { motion } from 'motion/react';
 
-export default function UserList() {
+interface UserListProps {
+  onViewProfile?: (uid: string) => void;
+}
+
+export default function UserList({ onViewProfile }: UserListProps) {
   const [users, setUsers] = React.useState<UserProfile[]>([]);
   const [searchTerm, setSearchTerm] = React.useState('');
   const [loading, setLoading] = React.useState(true);
@@ -96,7 +100,10 @@ export default function UserList() {
                 <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   {t('status')}: <span className="text-green-600">{t('active')}</span>
                 </div>
-                <button className="text-xs font-bold text-red-600 hover:text-red-700 transition-colors">
+                <button
+                  className="text-xs font-bold text-red-600 hover:text-red-700 transition-colors"
+                  onClick={() => onViewProfile && onViewProfile(user.uid)}
+                >
                   {t('viewProfile') || 'View Profile'}
                 </button>
               </div>

@@ -60,3 +60,20 @@ export interface Complaint {
   status: ComplaintStatus;
   createdAt: string;
 }
+
+export interface ChatMessage {
+  id: string;
+  senderUid: string;
+  receiverUid: string;
+  message: string;
+  timestamp: string;
+  read: boolean;
+}
+
+export interface ChatConversation {
+  id: string;
+  participants: string[];
+  lastMessage: string;
+  lastMessageTime: string;
+  unreadCount: { [uid: string]: number };
+}

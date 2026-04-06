@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "madahiye1"
-  }
+  },
+  "targets": {
+    "madahiye1": {
+      "hosting": {
+        "madahiye": [
+          "madahiye"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

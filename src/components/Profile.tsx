@@ -8,9 +8,10 @@ import { motion } from 'motion/react';
 
 interface ProfileProps {
   user: UserProfile;
+  onMessage?: () => void;
 }
 
-export default function Profile({ user }: ProfileProps) {
+export default function Profile({ user, onMessage }: ProfileProps) {
   const { t } = useLanguage();
 
   const handleSignOut = () => {
@@ -55,6 +56,15 @@ export default function Profile({ user }: ProfileProps) {
             </div>
             
             <div className="flex gap-3">
+              {onMessage && (
+                <button
+                  onClick={onMessage}
+                  className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-100"
+                >
+                  <Mail className="w-4 h-4" />
+                  Message
+                </button>
+              )}
               <button 
                 onClick={handleSignOut}
                 className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-bold hover:bg-red-600 transition-all shadow-lg shadow-slate-100"
