@@ -83,56 +83,58 @@ export default function App() {
   }
 
   return (
-    <Layout user={profile} onViewChange={setView} currentView={view}>
-      <div className="space-y-8">
-        {profile.status === 'banned' ? (
-          <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-red-700 mb-2">{t('accountBanned')}</h2>
-            <p className="text-red-600 mb-6">
-              {t('banReason')}
-            </p>
-            <div className="bg-white rounded-xl p-4 border border-red-100 text-sm text-slate-600 mb-6">
-              {t('reinstateNotice')}
+    <>
+      <Layout user={profile} onViewChange={setView} currentView={view}>
+        <div className="space-y-8">
+          {profile.status === 'banned' ? (
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold text-red-700 mb-2">{t('accountBanned')}</h2>
+              <p className="text-red-600 mb-6">
+                {t('banReason')}
+              </p>
+              <div className="bg-white rounded-xl p-4 border border-red-100 text-sm text-slate-600 mb-6">
+                {t('reinstateNotice')}
+              </div>
+              <button className="bg-red-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-100">
+                {t('contactSupport')}
+              </button>
             </div>
-            <button className="bg-red-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-100">
-              {t('contactSupport')}
-            </button>
-          </div>
-        ) : (
-          <>
-            {view === 'admin' && profile.role === 'admin' && <AdminPanel />}
-            {view === 'users' && (
-              <UserList
-                onViewProfile={async (uid: string) => {
-                  if (uid === profile.uid) {
-                    setSelectedUser(null);
-                    setView('profile');
-                  } else {
-                    const userDoc = await getDoc(doc(db, 'users', uid));
-                    if (userDoc.exists()) {
-                      setSelectedUser(userDoc.data() as UserProfile);
-                      setView('userProfile');
+          ) : (
+            <>
+              {view === 'admin' && profile.role === 'admin' && <AdminPanel />}
+              {view === 'users' && (
+                <UserList
+                  onViewProfile={async (uid: string) => {
+                    if (uid === profile.uid) {
+                      setSelectedUser(null);
+                      setView('profile');
+                    } else {
+                      const userDoc = await getDoc(doc(db, 'users', uid));
+                      if (userDoc.exists()) {
+                        setSelectedUser(userDoc.data() as UserProfile);
+                        setView('userProfile');
+                      }
                     }
-                  }
-                }}
-              />
-            )}
-            {view === 'profile' && <Profile user={profile} />}
-            {view === 'userProfile' && selectedUser && (
-              <Profile user={selectedUser} onMessage={() => setChatUser(selectedUser)} />
-            )}
-            {view === 'dashboard' && (
-              <>
-                <DonationTracker user={profile} />
-                <Dashboard user={profile} />
-              </>
-            )}
-          </>
-        )}
-      </div>
-    </Layout>
-    {chatUser && (
-      <Chat currentUser={profile} targetUser={chatUser} onClose={() => setChatUser(null)} />
-    )}
+                  }}
+                />
+              )}
+              {view === 'profile' && <Profile user={profile} />}
+              {view === 'userProfile' && selectedUser && (
+                <Profile user={selectedUser} onMessage={() => setChatUser(selectedUser)} />
+              )}
+              {view === 'dashboard' && (
+                <>
+                  <DonationTracker user={profile} />
+                  <Dashboard user={profile} />
+                </>
+              )}
+            </>
+          )}
+        </div>
+      </Layout>
+      {chatUser && (
+        <Chat currentUser={profile} targetUser={chatUser} onClose={() => setChatUser(null)} />
+      )}
+    </>
   );
 }
