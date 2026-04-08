@@ -36,11 +36,19 @@ export const translations: Translations = {
   },
   termsNotice: { so: 'Markaad gasho, waxaad ogolaatay shuruudahayada adeegga.', en: 'By signing in, you agree to our terms of service.', ar: 'بتسجيل الدخول، فإنك توافق على شروط الخدمة الخاصة بنا.' },
   
-  // Rules
-  rulesTitle: { so: 'Xeerarka Badbaadada Bulshada', en: 'Community Safety Rules', ar: 'قواعد سلامة المجتمع' },
-  rule1: { so: 'Deeq dhiig oo sanadle ah oo qasab ah', en: 'Mandatory annual donation', ar: 'تبرع سنوي إلزامي' },
-  rule2: { so: 'Hubinta caafimaadka ayaa loo baahan yahay', en: 'Health verification required', ar: 'مطلوب التحقق الصحي' },
-  rule3: { so: 'Mahadnaq deeq bixiyaha oo loo marayo dhibco', en: 'Donor appreciation via points system', ar: 'تقدير المتبرع عبر نظام النقاط' },
+
+  // Rules (Updated for Madahiye)
+  rulesTitle: { so: 'Xeerarka Madahiye', en: 'Madahiye Platform Rules', ar: 'قوانين منصة مداحي' },
+  rule1: { so: 'Waa inaad deeq dhiig bixisaa ugu yaraan hal mar sanadkii. O- iyo A- waa laba jeer.', en: 'You must donate blood at least once per year. O- and A- must donate twice.', ar: 'يجب أن تتبرع بالدم مرة واحدة على الأقل سنويًا. O- وA- مرتين.' },
+  rule2: { so: 'Hubin caafimaad sanadle ah ama foomka "Donor Clearance" ee isbitaalka.', en: 'Annual health check or hospital "Donor Clearance" form required.', ar: 'فحص صحي سنوي أو نموذج "تصريح المتبرع" من المستشفى.' },
+  rule3: { so: 'Qaataha waa inuu siiyo deeq bixiyaha ugu yaraan <b>$20</b> gaadiid/nafaqo isla markiiba.', en: 'Recipient must pay donor at least <b>$20</b> for transport/nutrition immediately.', ar: 'يجب على المتلقي دفع <b>20 دولارًا</b> للمتبرع فورًا للنقل/التغذية.' },
+  rule4: { so: 'Qaataha waa inuu daboolaa dhammaan kharashaadka isbitaalka iyo $20 deeq bixiyaha.', en: 'Recipient covers all hospital bills and the <b>$20</b> donor payment.', ar: 'المتلقي يغطي جميع فواتير المستشفى ودفعة <b>20 دولارًا</b> للمتبرع.' },
+  rule5: { so: 'Xubinnimada waa la xaddiday. Diiwaangelinta dheddigga waxay u baahan tahay oggolaanshaha Maamulka.', en: 'Membership is restricted. Female registration requires Admin approval.', ar: 'العضوية مقيدة. تسجيل الإناث يتطلب موافقة المسؤول.' },
+  rule6: { so: 'Kadib deeqda, qaataha waa inuu xaqiijiyaa dhiig helay iyo $20 la bixiyay. Warbixin been ah = ganaax $10 + 6 bilood.', en: 'After donation, recipient must confirm blood received and <b>$20</b> paid. False report = <b>$10</b> fine + 6-month ban.', ar: 'بعد التبرع، يجب على المتلقي تأكيد استلام الدم ودفع <b>20 دولارًا</b>. بلاغ كاذب = غرامة <b>10 دولارات</b> وحظر 6 أشهر.' },
+  rule7: { so: 'Hawl kasta oo la dhajiyo waa <b>1 Dhibic</b> ($0.50). Buuxinta ugu yar waa 4 Dhibcood ($2.00).', en: 'Each post costs <b>1 Point</b> (<b>$0.50</b>). Minimum top-up is 4 Points (<b>$2.00</b>).', ar: 'كل منشور يكلف <b>1 نقطة</b> (<b>0.50 دولار</b>). الحد الأدنى للتعبئة 4 نقاط (<b>2.00 دولار</b>).' },
+  rule8: { so: 'Haddii aadan deeqin waqtigaaga ama aad ka tagto, ganaax $20 si aad ugu soo laabato.', en: 'If you fail to donate on time or leave, you must pay a <b>$20</b> fine to return.', ar: 'إذا لم تتبرع في الوقت المحدد أو غادرت، يجب دفع غرامة <b>20 دولارًا</b> للعودة.' },
+  rule9: { so: 'Dacwadaha waxaa baaraya Kooxda Cabashada. Qofka qaladka leh wuu bixiyaa kharashka baaritaanka iyo ganaaxyada.', en: 'Complaints are investigated by the Complain Team. The guilty party pays investigation costs and fines.', ar: 'يتم التحقيق في الشكاوى من قبل فريق الشكاوى. الطرف المخطئ يدفع تكاليف التحقيق والغرامات.' },
+  rule10: { so: 'Deeq bixiyuhu wuu qiimeyn karaa qaataha. Qiimeyntu waa mid furan.', en: 'Donor can rate recipient. Rating is public.', ar: 'يمكن للمتبرع تقييم المتلقي. التقييم علني.' },
 
   // Profile Setup
   completeProfile: { so: 'Dhamaystir Profile-kaaga', en: 'Complete Your Profile', ar: 'أكمل ملفك الشخصي' },
@@ -68,16 +76,15 @@ export const translations: Translations = {
   law2: { so: 'Lacagta madasha: dhibco halkii boostada.', en: 'Platform fee: points per post.', ar: 'رسوم المنصة: نقاط لكل منشور.' },
   law3: { so: 'Warbixin been abuur ah: dhibco laga gooyo & 6 bilood oo ganaax ah.', en: 'False reporting: point deduction & 6-month ban.', ar: 'بلاغ كاذب: خصم نقاط وحظر لمدة 6 أشهر.' },
 
-  // Points
+  // Points & Wallet (Updated)
   pointsWallet: { so: 'Boorsada Dhibcaha', en: 'Points Wallet', ar: 'محفظة النقاط' },
   currentBalance: { so: 'Haraaga Hadda', en: 'Current Balance', ar: 'الرصيد الحالي' },
-  points: { so: 'Dhibcood', en: 'Points', ar: 'نقاط' },
-  onePostOnePoint: { so: '1 Boostada = 1 Dhibic', en: '1 Post = 1 Point', ar: '1 منشور = 1 نقطة' },
-  onePointValue: { so: '1 Dhibic = $0.50 USD', en: '1 Point = $0.50 USD', ar: '1 نقطة = 0.50 دولار' },
-  topUpInfo: { so: 'Macluumaadka Buuxinta', en: 'Top-up Info', ar: 'معلومات التعبئة' },
-  minTopUp: { so: 'Buuxinta ugu yar waa 4 Dhibcood ($2.00 USD).', en: 'Minimum top-up is 4 Points ($2.00 USD).', ar: 'الحد الأدنى للتعبئة هو 4 نقاط (2.00 دولار).' },
-  topUpContact: { so: 'Si aad u hesho dhibco, la xiriir [+252771641609](https://wa.me/252771641609) WhatsApp.', en: 'To get points, contact [+252771641609](https://wa.me/252771641609) on WhatsApp.', ar: 'للحصول على نقاط، تواصل مع [+252771641609](https://wa.me/252771641609) عبر الواتساب.' },
-  needPointsToPost: { so: 'Waxaad u baahan tahay dhibco si aad u soo dhajiso. Fadlan hubi Profile-kaaga.', en: 'You need points to post. Please check your Profile Tab.', ar: 'تحتاج إلى نقاط للنشر. يرجى التحقق من ملفك الشخصي.' },
+  points: { so: '<b>Dhibcood</b>', en: '<b>Points</b>', ar: '<b>نقاط</b>' },
+  onePostOnePoint: { so: '<b>1 Boostada = 1 Dhibic</b>', en: '<b>1 Post = 1 Point</b>', ar: '<b>1 منشور = 1 نقطة</b>' },
+  onePointValue: { so: '<b>1 Dhibic = $0.50 USD</b>', en: '<b>1 Point = $0.50 USD</b>', ar: '<b>1 نقطة = 0.50 دولار</b>' },
+  minTopUp: { so: '<b>Buuxinta ugu yar waa 4 Dhibcood ($2.00 USD)</b>.', en: '<b>Minimum top-up is 4 Points ($2.00 USD)</b>.', ar: '<b>الحد الأدنى للتعبئة هو 4 نقاط (2.00 دولار)</b>.' },
+  topUpContact: { so: 'Si aad u hesho dhibco, <a href="https://wa.me/252771641609" target="_blank" rel="noopener noreferrer"><b>+252771641609</b></a> WhatsApp.', en: 'To get points, <a href="https://wa.me/252771641609" target="_blank" rel="noopener noreferrer"><b>+252771641609</b></a> on WhatsApp.', ar: 'للحصول على نقاط، تواصل مع <a href="https://wa.me/252771641609" target="_blank" rel="noopener noreferrer"><b>+252771641609</b></a> عبر الواتساب.' },
+  needPointsToPost: { so: 'Waxaad u baahan tahay <b>dhibco</b> si aad u soo dhajiso. Fadlan hubi <b>Profile Tab</b> oo la xiriir <b>+252771641609</b> WhatsApp si aad u buuxiso (Ugu yaraan $2.00 = 4 dhibcood).', en: 'You need <b>points</b> to post. Please check your <b>Profile Tab</b> and message <b>+252771641609</b> on WhatsApp to top-up (Minimum $2.00 for 4 points).', ar: 'تحتاج إلى <b>نقاط</b> للنشر. يرجى التحقق من <b>ملفك الشخصي</b> والتواصل مع <b>+252771641609</b> عبر الواتساب للتعبئة (الحد الأدنى 2 دولار لـ 4 نقاط).' },
   
   // Request Form
   postBloodRequest: { so: 'Soo dhaji Codsiga Dhiigga', en: 'Post Blood Request', ar: 'نشر طلب دم' },

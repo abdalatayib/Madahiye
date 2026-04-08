@@ -53,10 +53,17 @@ export default function Auth() {
             <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0" />
             <div className="text-sm text-blue-800">
               <p className="font-semibold">{t('rulesTitle')}</p>
-              <ul className="list-disc list-inside mt-1 space-y-1 opacity-90">
-                <li>{t('rule1')}</li>
-                <li>{t('rule2')}</li>
-                <li>{t('rule3')}</li>
+              <ul className="list-disc list-inside mt-1 space-y-1 opacity-90 text-left">
+                <li dangerouslySetInnerHTML={{__html: t('rule1')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule2')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule3')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule4')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule5')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule6')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule7')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule8')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule9')}} />
+                <li dangerouslySetInnerHTML={{__html: t('rule10')}} />
               </ul>
             </div>
           </div>
