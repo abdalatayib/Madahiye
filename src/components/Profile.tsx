@@ -125,7 +125,11 @@ export default function Profile({ user, onMessage }: ProfileProps) {
           </div>
           <div className="text-4xl font-black text-amber-600">{user.points || 0}</div>
           <p className="text-slate-500 text-sm mt-2">{t('currentBalance')}</p>
-          <div className="mt-4 text-xs text-slate-700 bg-amber-50 border border-amber-100 rounded-xl p-3" dangerouslySetInnerHTML={{__html: t('onePostOnePoint') + ' &nbsp; ' + t('onePointValue') + '<br/>' + t('minTopUp') + '<br/>' + t('topUpContact')}} />
+          <div className="mt-4 text-xs text-slate-700 bg-amber-50 border border-amber-100 rounded-xl p-3">
+            <div dangerouslySetInnerHTML={{__html: t('onePostOnePoint') + ' &nbsp; ' + t('onePointValue') + '<br/>' + t('minTopUp')}} />
+            <br/>
+            <span>To get points, contact <a href="https://wa.me/252771641609" target="_blank" rel="noopener noreferrer"><b>+252771641609</b></a> on WhatsApp.</span>
+          </div>
         </motion.div>
       </div>
 

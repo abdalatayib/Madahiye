@@ -72,7 +72,8 @@ export const translations: Translations = {
   status: { so: 'Heerka', en: 'Status', ar: 'الحالة' },
   postedOn: { so: 'La soo dhajiyay', en: 'Posted on', ar: 'نشر في' },
   theLaw: { so: 'Xeerka', en: 'The Law', ar: 'القانون' },
-  law1: { so: 'Qaataha waa inuu bixiyaa dhibco gaadiid/nafaqo.', en: 'Recipient must provide points for transport/nutrition.', ar: 'يجب على المتلقي تقديم نقاط للنقل/التغذية.' },
+  law1: { so: 'Qaataha waa inuu siiyo deeq bixiyaha ugu yaraan <b>$20</b> gaadiid/nafaqo.', en: 'Recipient must provide the donor a minimum of <b>$20</b> for transport/nutrition.', ar: 'يجب على المتلقي دفع <b>20 دولارًا</b> للمتبرع للنقل/التغذية.' },
+    law1: { so: 'Qaataha waa inuu siiyo deeq bixiyaha ugu yaraan <b>$20</b> gaadiid/nafaqo.', en: 'Recipient must pay donor at least <b>$20</b> for transport/nutrition.', ar: 'يجب على المتلقي دفع <b>20 دولارًا</b> للمتبرع للنقل/التغذية.' },
   law2: { so: 'Lacagta madasha: dhibco halkii boostada.', en: 'Platform fee: points per post.', ar: 'رسوم المنصة: نقاط لكل منشور.' },
   law3: { so: 'Warbixin been abuur ah: dhibco laga gooyo & 6 bilood oo ganaax ah.', en: 'False reporting: point deduction & 6-month ban.', ar: 'بلاغ كاذب: خصم نقاط وحظر لمدة 6 أشهر.' },
 
