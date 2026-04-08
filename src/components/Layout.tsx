@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import InstallPWAButton from './InstallPWAButton';
 import { UserProfile } from '../types';
 
 interface LayoutProps {
@@ -102,6 +103,7 @@ export default function Layout({ children, user, onViewChange, currentView }: La
       </nav>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 sm:pb-8">
+        <InstallPWAButton />
         {children}
       </main>
 

@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { Droplets, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import InstallPWAButton from './InstallPWAButton';
 
 export default function Auth() {
   const [loading, setLoading] = React.useState(false);
@@ -46,6 +47,7 @@ export default function Auth() {
           <p className="text-slate-500 mt-2">{t('authSubtext')}</p>
         </div>
 
+        <InstallPWAButton />
         <div className="space-y-4">
           <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
             <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0" />
