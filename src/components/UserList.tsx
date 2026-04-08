@@ -31,10 +31,14 @@ export default function UserList({ onViewProfile }: UserListProps) {
     return () => unsubscribe();
   }, []);
 
-  const filteredUsers = users.filter(user => 
-    user.displayName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.bloodType.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter by search term and city/location
+  const [cityFilter, setCityFilter] = React.useState('');
+  const filteredUsers = users.filter(user => {
+    const matchesSearch = user.displayName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.bloodType.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCity = cityFilter ? (user.location || '').toLowerCase() === cityFilter.toLowerCase() : true;
+    return matchesSearch && matchesCity;
+  });
 
   if (loading) {
     return (
@@ -51,14 +55,23 @@ export default function UserList({ onViewProfile }: UserListProps) {
           <Droplets className="w-6 h-6 text-red-600" />
           {t('users')}
         </h2>
-        <div className="relative max-w-md w-full">
+        <div className="flex gap-2 items-center">
+          <div className="relative max-w-md w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder={t('searchUsers') || 'Search donors...'}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+            />
+          </div>
           <input
             type="text"
-            placeholder={t('searchUsers') || 'Search donors...'}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+            placeholder="Filter by city..."
+            value={cityFilter}
+            onChange={e => setCityFilter(e.target.value)}
+            className="w-40 px-3 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
           />
         </div>
       </div>
@@ -87,6 +100,7 @@ export default function UserList({ onViewProfile }: UserListProps) {
                       <ShieldCheck className="w-4 h-4 text-blue-500" />
                     )}
                   </div>
+                  <div className="text-xs text-slate-500 truncate">{user.location ? `City: ${user.location}` : ''}</div>
                   <div className="flex items-center gap-1 text-xs text-slate-500">
                     <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                     <span>{user.rating || 5.0}</span>

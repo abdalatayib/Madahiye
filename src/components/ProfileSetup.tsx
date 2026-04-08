@@ -14,6 +14,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
   const [gender, setGender] = React.useState<'male' | 'female' | ''>('');
   const [whatsappNumber, setWhatsappNumber] = React.useState('');
   const [evcNumber, setEvcNumber] = React.useState('');
+  const [location, setLocation] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const { t } = useLanguage();
@@ -34,6 +35,7 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
       gender: gender as 'male' | 'female',
       whatsappNumber,
       evcNumber,
+      location,
       points: 0,
       status: 'active',
       role: auth.currentUser.email === 'tayib4986@gmail.com' ? 'admin' : 'user',
@@ -127,6 +129,18 @@ export default function ProfileSetup({ onComplete }: ProfileSetupProps) {
             value={evcNumber}
             onChange={(e) => setEvcNumber(e.target.value)}
             placeholder="e.g. +252..."
+            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">City / Location</label>
+          <input
+            required
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="e.g. Mogadishu"
             className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-red-500 outline-none"
           />
         </div>

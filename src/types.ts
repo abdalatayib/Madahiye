@@ -22,6 +22,7 @@ export interface UserProfile {
   points?: number;
   profilePicture?: string;
   coverPicture?: string;
+  location?: string; // City or location
 }
 
 export interface BloodRequest {

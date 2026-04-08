@@ -145,6 +145,10 @@ export default function Profile({ user, onMessage }: ProfileProps) {
               <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{t('evcNumber')}</p>
               <p className="text-slate-900 font-medium">{user.evcNumber || t('none')}</p>
             </div>
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">City / Location</p>
+              <p className="text-slate-900 font-medium">{user.location || t('none')}</p>
+            </div>
           </div>
           <div className="space-y-4">
             <div>
